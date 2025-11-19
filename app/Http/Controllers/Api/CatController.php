@@ -30,7 +30,7 @@ class CatController extends Controller
     public function indexAll(Request $request)
     {
         $cats = $this->catService->getAll(
-            fields: ['id', 'name', 'department', 'img', 'img2', 'created_at', 'updated_at'],
+            fields: ['id', 'name', 'department', 'img', 'img2', 'filer','created_at', 'updated_at'],
             orderBy: $request->get('orderBy', 'id'),
             direction: $request->get('direction', 'desc')
         );
@@ -44,6 +44,11 @@ class CatController extends Controller
 
     public function store(CatRequest $catRequest, ImageUploadRequest $imageRequest, FileUploadRequest $fileRequest)
     {
+        
+        $catRequest->validated();
+        $imageRequest->validated();
+        $fileRequest->validated();
+            
         $result = $this->catService->store($catRequest, $imageRequest, $fileRequest);
 
         return response()->json([

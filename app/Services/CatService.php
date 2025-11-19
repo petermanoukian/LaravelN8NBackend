@@ -73,7 +73,13 @@ class CatService
                 'uploads/img/cat/thumb',
                 1500,
                 1000,
-                ['jpg','jpeg','gif','webp','png','tiff'],
+                [
+                        'image/jpeg',
+                        'image/gif',
+                        'image/webp',
+                        'image/png',
+                        'image/tiff',
+                    ],
                 9920,
                 $name // category name as baseFileName
             );
@@ -95,7 +101,22 @@ class CatService
                 'uploads/files/cat',
                 $name, // category name as baseFileName
                 $randomSuffix,
-                ['txt','pdf','jpg','jpeg','gif','webp','png','tiff'],
+                [
+                'text/plain',
+                'application/pdf',
+                'image/jpeg',
+                'image/gif',
+                'image/webp',
+                'image/png',
+                'image/tiff',
+                'application/msword', 
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel', 
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
+                'application/json', 
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                ],
                 9120
             );
 

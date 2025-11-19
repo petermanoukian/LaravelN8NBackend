@@ -16,14 +16,44 @@ class FileUploaderService
         string $folder,
         string $baseFileName,
         string $randomSuffix,
-        array $allowedMimes = ['txt', 'pdf', 'jpg', 'jpeg', 'gif', 'webp', 'png', 'tiff'],
+        array $allowedMimeTypes = [
+            'text/plain',
+            'application/pdf',
+            'image/jpeg',
+            'image/gif',
+            'image/webp',
+            'image/png',
+            'image/tiff',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/json',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        ],
         int $maxFileSize = 9920
     ): ?array 
     {
         $request->merge([
-            'allowedMimes' => $allowedMimes,
-            'maxFileSize' => $maxFileSize,
+            'allowedMimeTypes' => $allowedMimeTypes,
+            'maxFileSize'      => $maxFileSize,
         ]);
+
+        // ✅ enforce validation before moving the file
+        try {
+            $request->validate($request->rules());
+            Log::info('✅ Validation passed for input "' . $inputName . '"', [
+                'rules' => $request->rules(),
+                'mime'  => $request->file($inputName)?->getMimeType(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('❌ Validation failed for input "' . $inputName . '"', [
+                'errors' => $e->errors(),
+                'mime'   => $request->file($inputName)?->getMimeType(),
+            ]);
+            throw $e; // stop execution, don’t move the file
+        }
 
         Log::info('📥 FileUploadService triggered');
 

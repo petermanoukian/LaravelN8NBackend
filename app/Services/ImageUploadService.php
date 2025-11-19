@@ -18,16 +18,38 @@ class ImageUploadService
         string $smallFolder,
         int $maxWidth = 1500,
         int $maxHeight = 1000,
-        array $allowedMimes = ['jpg', 'jpeg', 'gif', 'webp', 'png', 'tiff'],
+        array $allowedMimeTypes = [
+            'image/jpeg',
+            'image/gif',
+            'image/webp',
+            'image/png',
+            'image/tiff',
+        ],
         int $maxFileSize = 9920,
         ?string $baseFileName = null
     ): ?array 
     {
         // Merge dynamic allowedMimes and maxFileSize into request for validation
         $request->merge([
-            'allowedMimes' => $allowedMimes,
-            'maxFileSize' => $maxFileSize,
+            'allowedMimeTypes' => $allowedMimeTypes,
+            'maxFileSize'      => $maxFileSize,
         ]);
+        // ✅ enforce validation before moving the file
+        
+
+        try {
+            $request->validate($request->rules());
+            Log::info('✅ Image validation passed for input "' . $inputName . '"', [
+                'rules' => $request->rules(),
+                'mime'  => $request->file($inputName)?->getMimeType(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('❌ Image validation failed for input "' . $inputName . '"', [
+                'errors' => $e->errors(),
+                'mime'   => $request->file($inputName)?->getMimeType(),
+            ]);
+            throw $e; // stop execution, don’t move the file
+        }
 
         if (!$request->hasFile($inputName)) {
             return null;

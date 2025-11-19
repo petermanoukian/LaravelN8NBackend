@@ -26,11 +26,17 @@ class ImageUploadRequest extends FormRequest
     public function rules(): array
     {
         $inputName = $this->inputName ?? 'img';
-        $allowedMimes = $this->allowedMimes ?? ['jpg', 'jpeg', 'gif', 'webp', 'png', 'tiff'];
+        $allowedMimeTypes = $this->allowedMimeTypes ?? [
+            'image/jpeg',
+            'image/gif',
+            'image/webp',
+            'image/png',
+            'image/tiff',
+        ];
         $maxFileSize = $this->maxFileSize ?? 9920;
 
         return [
-            $inputName => 'nullable|file|mimes:' . implode(',', $allowedMimes) . '|max:' . $maxFileSize,
+            $inputName => 'nullable|file|mimetypes:' . implode(',', $allowedMimeTypes) . '|max:' . $maxFileSize,
         ];
     }
 
@@ -41,13 +47,19 @@ class ImageUploadRequest extends FormRequest
      */
     public function messages(): array
     {
-        $inputName = $this->inputName ?? 'image';
-        $allowedMimes = $this->allowedMimes ?? ['jpg', 'jpeg', 'gif', 'webp', 'png', 'tiff'];
-        $maxFileSize = ($this->maxFileSize ?? 5120) / 1024;
+        $inputName = $this->inputName ?? 'img';
+        $allowedMimeTypes = $this->allowedMimeTypes ?? [
+            'image/jpeg',
+            'image/gif',
+            'image/webp',
+            'image/png',
+            'image/tiff',
+        ];
+        $maxFileSize = ($this->maxFileSize ?? 9920) / 1024;
 
         return [
             "{$inputName}.required" => 'An image is required.',
-            "{$inputName}.mimes" => 'Image must be one of: ' . implode(', ', $allowedMimes) . '.',
+            "{$inputName}.mimetypes" => 'Image must be one of: ' . implode(', ', $allowedMimeTypes) . '.',
             "{$inputName}.max" => 'Image size must not exceed ' . $maxFileSize . 'MB.',
         ];
     }
@@ -59,9 +71,8 @@ class ImageUploadRequest extends FormRequest
     {
         // Merge dynamic params from route/request (controller can merge allowedMimes/maxFileSize before validation)
         $this->merge([
-            'inputName' => $this->route('inputName', 'image'),
-            'allowedMimes' => $this->route('allowedMimes') ?? $this->input('allowedMimes'), // From controller merge or input
-            'maxFileSize' => $this->route('maxFileSize') ?? $this->input('maxFileSize'), // From controller merge or input
+            'inputName' => $this->route('inputName', 'img'),
+            'allowedMimeTypes' => $this->route('allowedMimeTypes') ?? $this->input('allowedMimeTypes'),            'maxFileSize' => $this->route('maxFileSize') ?? $this->input('maxFileSize'), // From controller merge or input
         ]);
     }
 

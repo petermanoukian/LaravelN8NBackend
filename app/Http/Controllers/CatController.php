@@ -63,7 +63,13 @@ class CatController extends Controller
     {
         try {
             // Delegate to CatService
-                $result = $this->catService->store($catRequest, $imageRequest, $fileRequest);
+
+            $catRequest->validated();
+            $imageRequest->validated();
+            $fileRequest->validated();
+
+
+            $result = $this->catService->store($catRequest, $imageRequest, $fileRequest);
 
             Log::info('🐱 CatController store success', [
                 'cat_id' => $result['cat']->id,
