@@ -29,4 +29,14 @@ class AppServiceProvider extends ServiceProvider
     {
         \Illuminate\Support\Facades\Schema::defaultStringLength(191);
     }
+
+    protected $listen = [
+        \App\Events\CategoryCreated::class => [
+            \App\Listeners\LogCategoryCreatedListener::class,
+            \App\Listeners\NotifyN8NListener::class,
+        ],
+    ];
+
+
+
 }

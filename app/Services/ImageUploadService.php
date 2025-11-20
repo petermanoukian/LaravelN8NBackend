@@ -39,10 +39,12 @@ class ImageUploadService
 
         try {
             $request->validate($request->rules());
+            /*
             Log::info('✅ Image validation passed for input "' . $inputName . '"', [
                 'rules' => $request->rules(),
                 'mime'  => $request->file($inputName)?->getMimeType(),
             ]);
+            */
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('❌ Image validation failed for input "' . $inputName . '"', [
                 'errors' => $e->errors(),
@@ -76,7 +78,7 @@ class ImageUploadService
         $smallPath = public_path($relativeSmallPath);
 
 
-        
+        /*
 
         Log::info('📂 ImageUploadService paths', [
             'largeFolder'       => $largeFolder,
@@ -86,7 +88,8 @@ class ImageUploadService
             'largePath'         => $largePath,
             'smallPath'         => $smallPath
         ]);
-
+        */
+        
         // Ensure folders exist
         $largeDir = dirname($largePath);
         if (!file_exists($largeDir)) {

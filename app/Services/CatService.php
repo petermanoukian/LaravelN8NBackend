@@ -8,6 +8,7 @@ use App\Http\Requests\FileUploadRequest;
 use App\Repositories\Contracts\CatRepositoryInterface;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use App\Events\CategoryCreated;
 
 class CatService
 {
@@ -17,8 +18,6 @@ class CatService
         private FileUploaderService $fileUploaderService
     ) {
     }
-
-
 
     public function getAll(
         array $fields = ['*'],
@@ -39,10 +38,6 @@ class CatService
     }
 
 
-
-
-
-
     public function store(
         CatRequest $catRequest,
         ImageUploadRequest $imageRequest,
@@ -57,7 +52,7 @@ class CatService
 
         // Create category via repo
         $cat = $this->catRepository->create($data);
-        Log::info('Category stored', ['cat_id' => $cat->id, 'name' => $name]);
+        //Log::info('Category stored', ['cat_id' => $cat->id, 'name' => $name]);
 
         $imageResult = null;
         $fileResult  = null;
@@ -127,6 +122,7 @@ class CatService
             }
         }
 
+        event(new CategoryCreated($cat));
         return [
             'cat'   => $cat,
             'image' => $imageResult,

@@ -15,7 +15,7 @@ class FileUploadRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        \Log::info('🔑 FileUploadRequest::authorize called');
+        //\Log::info('🔑 FileUploadRequest::authorize called');
         return true; // Adjust for authorization logic if needed
     }
 
@@ -48,13 +48,14 @@ class FileUploadRequest extends FormRequest
         ];
 
 
-
+        /*
         \Log::info('📏 FileUploadRequest::rules called Line 32', [
                 'inputName'    => $inputName,
                 'allowedMimeTypes' => $allowedMimeTypes,
                 'maxFileSize'  => $maxFileSize,
             ]);
-
+        */
+            
         /*
         return [
             $inputName => 'nullable|file|mimes:' . implode(',', $allowedMimes) . '|max:' . $maxFileSize,
@@ -103,12 +104,12 @@ class FileUploadRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        
+        /*
         \Log::info('⚙️ FileUploadRequest::prepareForValidation called', [
             'routeParams' => $this->route(),
             'input'       => $this->all(),
         ]);
-        
+        */
         // Merge dynamic params from route/request (controller can merge allowedMimes/maxFileSize before validation)
         $this->merge([
             'inputName' => $this->route('inputName', 'filer'),

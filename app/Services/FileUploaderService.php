@@ -43,10 +43,13 @@ class FileUploaderService
         // ✅ enforce validation before moving the file
         try {
             $request->validate($request->rules());
+            /*
             Log::info('✅ Validation passed for input "' . $inputName . '"', [
                 'rules' => $request->rules(),
                 'mime'  => $request->file($inputName)?->getMimeType(),
             ]);
+
+            */
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('❌ Validation failed for input "' . $inputName . '"', [
                 'errors' => $e->errors(),
@@ -55,7 +58,7 @@ class FileUploaderService
             throw $e; // stop execution, don’t move the file
         }
 
-        Log::info('📥 FileUploadService triggered');
+        //Log::info('📥 FileUploadService triggered');
 
         if (!$request->hasFile($inputName)) {
             Log::warning('🚫 No file received under "' . $inputName . '"');
@@ -64,11 +67,15 @@ class FileUploaderService
 
         /** @var UploadedFile $file */
         $file = $request->file($inputName);
+
+        /*
         Log::info('📄 File received', [
             'originalName' => $file->getClientOriginalName(),
             'mimeType'     => $file->getMimeType(),
             'extension'    => $file->getClientOriginalExtension(),
         ]);
+
+        */
 
         $extension = strtolower($file->getClientOriginalExtension());
 
@@ -80,17 +87,17 @@ class FileUploaderService
 
         // Build final filename
         $fileName = $baseFileName . '_' . $randomSuffix . '.' . $extension;
-        Log::info('📝 Final file name built', ['fileName' => $fileName]);
+        //Log::info('📝 Final file name built', ['fileName' => $fileName]);
 
         $relativePath = "{$folder}/{$fileName}";
 
         if (!file_exists(public_path($folder))) {
             mkdir(public_path($folder), 0755, true);
-            Log::info('📁 Created folder', ['folder' => public_path($folder)]);
+            //Log::info('📁 Created folder', ['folder' => public_path($folder)]);
         }
 
         $file->move(public_path($folder), $fileName);
-        Log::info('✅ File moved', ['path' => $relativePath]);
+        //Log::info('✅ File moved', ['path' => $relativePath]);
 
         return [
             'path'     => $relativePath,

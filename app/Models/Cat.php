@@ -17,4 +17,6 @@ class Cat extends Model
     ];
 
 
+
+
 }

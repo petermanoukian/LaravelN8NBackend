@@ -70,13 +70,14 @@ class CatController extends Controller
 
 
             $result = $this->catService->store($catRequest, $imageRequest, $fileRequest);
-
+            /*
             Log::info('🐱 CatController store success', [
                 'cat_id' => $result['cat']->id,
                 'image'  => $result['image']['original_name'] ?? null,
                 'file'   => $result['file']['original'] ?? null,
             ]);
-
+            */
+            
             return redirect()
                 ->route('cats.indexadmin')
                 ->with('success', 'Category created successfully!');

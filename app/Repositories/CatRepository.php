@@ -18,7 +18,7 @@ class CatRepository implements CatRepositoryInterface
     public function create(array $data): Cat
     {
         $cat = Cat::create($data);
-        Log::info('Created category', ['cat_id' => $cat->id, 'data' => $data]);
+        //Log::info('Created category', ['cat_id' => $cat->id, 'data' => $data]);
 
         return $cat;
     }
@@ -32,7 +32,7 @@ class CatRepository implements CatRepositoryInterface
 
         $updated = $cat->update($data);
         if ($updated) {
-            Log::info('Updated category', ['cat_id' => $id, 'data' => $data]);
+            //Log::info('Updated category', ['cat_id' => $id, 'data' => $data]);
         }
 
         return $updated;
@@ -64,13 +64,14 @@ class CatRepository implements CatRepositoryInterface
         $cats = Cat::select($fields)
             ->orderBy($orderBy, $direction)
             ->get();
-
+        /*
         Log::info('Fetched all categories as collection', [
             'fields'    => $fields,
             'count'     => $cats->count(),
             'order_by'  => $orderBy,
             'direction' => $direction,
         ]);
+        */
 
         return $cats;
     }
@@ -88,6 +89,7 @@ class CatRepository implements CatRepositoryInterface
             ->orderBy($orderBy, $direction)
             ->paginate($perPage); // ✅ no manual page override
 
+        /*  
         Log::info('Paginated categories', [
             'per_page'  => $perPage,
             'total'     => $cats->total(),
@@ -95,7 +97,7 @@ class CatRepository implements CatRepositoryInterface
             'order_by'  => $orderBy,
             'direction' => $direction,
         ]);
-
+        */
         return $cats;
     }
 

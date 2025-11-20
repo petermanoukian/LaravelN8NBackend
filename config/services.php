@@ -28,6 +28,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'n8n' => [
+        'domain' => env('N8N_DOMAIN', 'http://localhost:5678'),
+    ],
+
+    'web' => [
+        'domain' => env('WEB_DOMAIN', 'http://localhost:8000'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
