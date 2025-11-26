@@ -41,6 +41,22 @@ class CatController extends Controller
         ]);
     }
 
+    public function indexConditioned(Request $request)
+    {
+        $cats = $this->catService->getConditioned(
+            conditions: $request->only(['id', 'name', 'department', 'filer']),
+            fields: ['id', 'name', 'department', 'img', 'img2', 'filer','created_at', 'updated_at'],
+            orderBy: $request->get('orderBy', 'id'),
+            direction: $request->get('direction', 'desc')
+        );
+
+        return response()->json([
+            'count' => $cats->count(),
+            'data'  => $cats
+        ]);
+    }
+
+
 
     public function store(CatRequest $catRequest, ImageUploadRequest $imageRequest, FileUploadRequest $fileRequest)
     {

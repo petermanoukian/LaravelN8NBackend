@@ -19,7 +19,21 @@ interface CatRepositoryInterface
     /**
      * Return all categories as a collection.
      */
-    public function all(array $fields = ['*']): Collection;
+    //public function all(array $fields = ['*']): Collection;
+
+    public function all(
+        array $fields = ['*'],
+        string $orderBy = 'id',
+        string $direction = 'desc'
+    ): Collection;
+
+
+    public function conditioned(
+        array $conditions = [],
+        array $fields = ['*'],
+        string $orderBy = 'id',
+        string $direction = 'desc'
+    ): Collection;
 
     /**
      * Return paginated categories.

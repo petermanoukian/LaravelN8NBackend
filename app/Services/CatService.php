@@ -28,6 +28,18 @@ class CatService
         return $this->catRepository->all($fields, $orderBy, $direction);
     }
 
+    public function getConditioned(
+        array $conditions = [],
+        array $fields = ['*'],
+        string $orderBy = 'id',
+        string $direction = 'desc'
+    ) {
+        return $this->catRepository->conditioned($conditions, $fields, $orderBy, $direction);
+    }
+
+
+
+
     public function getPaginated(
         int $perPage = 15,
         array $fields = ['*'],

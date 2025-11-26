@@ -59,7 +59,7 @@ class CatRepository implements CatRepositoryInterface
     public function all(
         array $fields = ['*'],
         string $orderBy = 'id',
-        string $direction = 'asc'
+        string $direction = 'desc'
     ): Collection {
         $cats = Cat::select($fields)
             ->orderBy($orderBy, $direction)
@@ -75,6 +75,48 @@ class CatRepository implements CatRepositoryInterface
 
         return $cats;
     }
+
+
+
+    public function conditioned(
+        array $conditions = [],
+        array $fields = ['*'],
+        string $orderBy = 'id',
+        string $direction = 'desc'
+    ): Collection {
+        $query = Cat::select($fields);
+
+        foreach ($conditions as $field => $value) {
+            if ($value !== null && $value !== '') {
+                if ($field === 'department' && strtolower($value) === 'none') {
+                    // Special case: only rows where department is NULL or blank
+                    $query->where(function ($q) {
+                        $q->whereNull('department')
+                        ->orWhere('department', '');
+                    });
+                } else {
+                    // Normal exact match
+                    $query->where($field, $value);
+                }
+            }
+        }
+
+
+        $cats = $query->orderBy($orderBy, $direction)->get();
+
+        /*
+        Log::info('Fetched conditioned categories as collection', [
+            'fields'     => $fields,
+            'conditions' => $conditions,
+            'count'      => $cats->count(),
+            'order_by'   => $orderBy,
+            'direction'  => $direction,
+        ]);
+        */
+
+        return $cats;
+    }
+
 
     /**
      * Return paginated categories.
