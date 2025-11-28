@@ -8,6 +8,14 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+
+
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+
+
     @if($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
@@ -54,10 +62,45 @@
                     </td>
              
                     <td>
-                        {{-- Later: edit/delete --}}
-                        <a href="#" class="btn btn-sm btn-secondary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="{{ route('admin.cats.edit', $cat->id) }}" class="btn btn-sm btn-secondary">
+                            Edit
+                        </a>
+                        <form action="{{ route('admin.cats.delete', $cat->id) }}" method="POST" style="display:inline-block;"
+                            onsubmit="return confirm('Are you sure you want to delete this category?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+
+                        {{-- New line for knowledge base actions --}}
+                        <div class="mt-2">
+                            <a href="{{ route('basers.indexadmin', $cat->id) }}" class="btn btn-sm btn-info">
+                                View Knowledge Base
+                                @if($cat->basers_count > 0)
+                                    ({{ $cat->basers_count }})
+                                @endif
+                            </a>
+                            <a href="{{ route('basers.createadmin', $cat->id) }}" class="btn btn-sm btn-success">
+                                Add Knowledge Base
+                            </a>
+                        </div>
+
+                        {{-- Related basers list --}}
+                        @if($cat->basers_count > 0)
+                            <hr>
+                            <ul class="list-unstyled">
+                                @foreach($cat->basers as $baser)
+                                    <li>
+                                        {{ $baser->name ?? 'Untitled Base' }}
+                                        <a href="{{ route('admin.basers.edit', $baser->id) }}" class="btn btn-sm btn-outline-secondary">
+                                            Edit
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </td>
+
                 </tr>
             @empty
                 <tr>

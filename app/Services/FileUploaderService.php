@@ -29,6 +29,8 @@ class FileUploaderService
             'application/vnd.ms-excel',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'application/json',
+            'text/csv',             
+            'application/csv', 
             'application/vnd.ms-powerpoint',
             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
         ],
@@ -43,13 +45,13 @@ class FileUploaderService
         // ✅ enforce validation before moving the file
         try {
             $request->validate($request->rules());
-            /*
+            
             Log::info('✅ Validation passed for input "' . $inputName . '"', [
                 'rules' => $request->rules(),
                 'mime'  => $request->file($inputName)?->getMimeType(),
             ]);
 
-            */
+            
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('❌ Validation failed for input "' . $inputName . '"', [
                 'errors' => $e->errors(),
@@ -68,14 +70,14 @@ class FileUploaderService
         /** @var UploadedFile $file */
         $file = $request->file($inputName);
 
-        /*
+      
         Log::info('📄 File received', [
             'originalName' => $file->getClientOriginalName(),
             'mimeType'     => $file->getMimeType(),
             'extension'    => $file->getClientOriginalExtension(),
         ]);
 
-        */
+       
 
         $extension = strtolower($file->getClientOriginalExtension());
 
@@ -83,7 +85,8 @@ class FileUploaderService
         if (empty($baseFileName)) {
             $baseFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         }
-        $baseFileName = str_replace(' ', '-', $baseFileName);
+        //$baseFileName = str_replace(' ', '-', $baseFileName);
+        $baseFileName = str_replace([' ', '/'], '-', $baseFileName);
 
         // Build final filename
         $fileName = $baseFileName . '_' . $randomSuffix . '.' . $extension;

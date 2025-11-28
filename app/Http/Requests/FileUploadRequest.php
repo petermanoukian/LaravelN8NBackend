@@ -31,21 +31,24 @@ class FileUploadRequest extends FormRequest
         $maxFileSize = $this->maxFileSize ?? 9120;
 
 
-        $allowedMimeTypes = $this->allowedMimeTypes ?? [
-                'text/plain', // .txt, .text
-                'application/pdf',
-                'image/jpeg',
-                'image/gif',
-                'image/webp',
-                'image/png',
-                'image/tiff',
-                // ✅ added formats
-                'application/msword', // .doc
-                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
-                'application/vnd.ms-excel', // .xls
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
-                'application/json', // .json
-        ];
+$allowedMimeTypes = $this->allowedMimeTypes ?? [
+    'text/plain', // .txt, .text
+    'application/pdf',
+    'image/jpeg',
+    'image/gif',
+    'image/webp',
+    'image/png',
+    'image/tiff',
+    // ✅ added formats
+    'application/msword', // .doc
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+    'application/vnd.ms-excel', // .xls
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+    'application/json', // .json
+    'text/csv',        // .csv
+    'application/csv', // .csv
+];
+
 
 
         /*

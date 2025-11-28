@@ -1,0 +1,20 @@
+{
+  "model_name": "Sentiment_Analysis_v3.1",
+  "model_architecture": "BERT-Small",
+  "status": "Production Ready",
+  "training_parameters": {
+    "learning_rate": 0.00005,
+    "batch_size": 32,
+    "epochs": 4,
+    "optimizer": "AdamW"
+  },
+  "deployment_config": {
+    "target_mcp_instance": "I-prod-AI-001",
+    "endpoint_path": "/api/ai/sentiment/v3",
+    "auto_scaling_enabled": true
+  },
+  "data_paths": {
+    "training_data_source": "s3://internal-ai-datasets/sentiment-2025-Q3/",
+    "model_weights_path": "/mnt/models/sentiment/v3.1/weights.h5"
+  }
+}

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Backend For AIs</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -75,6 +75,19 @@
                             </ul>
                         </div>
 
+
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="basersDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Knowledge Base
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="basersDropdown">
+                                <li><a class="dropdown-item" href="{{ route('basers.createadmin') }}">Add Base</a></li>
+                                <li><a class="dropdown-item" href="{{ route('basers.indexadmin') }}">View Baser</a></li>
+                            </ul>
+                        </div>
+
+
+
                         <div class="dropdown">
                             <button class="btn btn-outline-primary dropdown-toggle" type="button" id="productsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 Products
@@ -99,5 +112,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}"></script>
+         @yield('scripts')
+         
     </body>
 </html>

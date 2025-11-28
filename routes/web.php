@@ -15,9 +15,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [AdminHomeController::class, 'index'])->name('admin.home');
     Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin.home');
     Route::get('/admin/home', [AdminHomeController::class, 'index'])->name('admin.home');
     require __DIR__ . '/admin/cats.php';
+    require __DIR__ . '/admin/basers.php';
 });
 
 

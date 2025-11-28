@@ -66,7 +66,8 @@ class ImageUploadService
         if (is_null($baseFileName)) {
             $baseFileName = pathinfo($originalName, PATHINFO_FILENAME);
         }
-        $baseFileName = str_replace(' ', '-', $baseFileName);
+        //$baseFileName = str_replace(' ', '-', $baseFileName);
+        $baseFileName = str_replace([' ', '/'], '-', $baseFileName);
         $randomSuffix = time() . '_' . uniqid();
         $fileName = $baseFileName . '-' . $randomSuffix . '.' . $extension;
 
