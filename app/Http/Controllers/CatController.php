@@ -21,7 +21,7 @@ class CatController extends Controller
     public function indexadmin()
     {
         $cats = $this->catService->getPaginated(
-            perPage: 5,
+            perPage: 25,
             fields: ['id', 'name', 'department', 'img', 'img2', 'filer'],
             orderBy: 'id',
             direction: 'desc',

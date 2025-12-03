@@ -3,4 +3,7 @@
 use Laravel\Mcp\Facades\Mcp;
 use App\Mcp\Servers\PingServer;
 
-Mcp::web('/mcp/ping', PingServer::class);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Mcp::web('/mcp/ping', PingServer::class);
+});
