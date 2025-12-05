@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     require __DIR__ . '/api/admin/cats.php';
+    
 });
 
 

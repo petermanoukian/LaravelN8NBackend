@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminHomeController;
+use Laravel\Mcp\Facades\Mcp;
 
 Route::get('/', function () {
     return view('welcome');

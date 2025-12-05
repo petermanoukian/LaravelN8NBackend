@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use App\Http\Middleware\SkipAuthIfMcpInspector;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,6 +17,20 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+
+        $middleware->alias([
+            'mcp.auth_check' => SkipAuthIfMcpInspector::class,
+        ]);
+
+        $middleware->alias([
+            'mcp.auth' => \App\Http\Middleware\McpAuth::class,
+        ]);
+
+        $middleware->group('sanctum_protected', [
+            'auth:sanctum', // Alias is defined here
+        ]);
+
+
         $middleware->web([
             EnsureFrontendRequestsAreStateful::class,
         ]);
@@ -29,3 +44,4 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
+require __DIR__.'/../routes/ai.php';

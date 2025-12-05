@@ -2,8 +2,11 @@
 
 use Laravel\Mcp\Facades\Mcp;
 use App\Mcp\Servers\PingServer;
+use App\Mcp\Servers\TestServer;
 
+Mcp::web('/mcp/ping', PingServer::class)
+   ->middleware('mcp.auth');
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Mcp::web('/mcp/ping', PingServer::class);
-});
+Mcp::web('/mcp/test', TestServer::class)
+   ->middleware('auth:sanctum');
+
