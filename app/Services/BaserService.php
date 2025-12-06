@@ -316,6 +316,8 @@ class BaserService
                     'application/vnd.ms-excel', 
                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
                     'application/json', 
+                    'text/csv',        
+                    'application/csv', 
                     'application/vnd.ms-powerpoint',
                     'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                 ],

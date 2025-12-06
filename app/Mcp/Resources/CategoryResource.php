@@ -5,6 +5,7 @@ namespace App\Mcp\Resources;
 use App\Models\Cat;
 use Laravel\Mcp\Server\Resource;
 use Laravel\Mcp\Response;
+use Laravel\Mcp\Request;
 
 class CategoryResource extends Resource
 {
@@ -14,7 +15,7 @@ class CategoryResource extends Resource
     protected string $uri = 'knowledge://categories';
     protected string $mimeType = 'application/json';
 
-    public function handle(\Laravel\Mcp\Request $request): Response
+    public function handle(Request $request): Response
     {
         // FIX: Added 'filer' to the select statement so it can be processed below.
         $categories = Cat::select('id', 'name', 'img', 'img2','department', 'filer' , 'created_at') 

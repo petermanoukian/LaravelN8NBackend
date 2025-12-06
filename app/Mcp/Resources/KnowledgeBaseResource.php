@@ -4,7 +4,9 @@ namespace App\Mcp\Resources;
 
 use App\Models\Baser;
 use Laravel\Mcp\Server\Resource;
-use Laravel\Mcp\Response;
+use Laravel\Mcp\Request;
+use Laravel\Mcp\Response; 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class KnowledgeBaseResource extends Resource
@@ -12,10 +14,10 @@ class KnowledgeBaseResource extends Resource
     protected string $name = 'knowledge-entries';
     protected string $title = 'Knowledge Base';
     protected string $description = 'Knowledge entries with names, filer, des/dess, catid. Filter by catid if provided.';
-    protected string $uri = 'knowledge://entries';
+    protected string $uri = 'knowledge://knowledge-entries';
     protected string $mimeType = 'application/json';
 
-    public function handle(\Laravel\Mcp\Request $request): Response
+    public function handle(Request $request): Response
     {
        
        Log::info("MCP RAW REQUEST", [
@@ -34,7 +36,7 @@ class KnowledgeBaseResource extends Resource
         $requestedUri = $params['uri'] ?? $this->uri;
         $parameters   = $params['parameters'] ?? [];
 
-        $query = Baser::select('id', 'name', 'filer',  'catid')
+        $query = Baser::select('id', 'name', 'filer', 'img', 'catid', 'des','dess', 'created_at')
             ->with('cat');
 
         // --- Filtering Logic ---
@@ -64,13 +66,36 @@ class KnowledgeBaseResource extends Resource
         // --- End Filtering Logic ---
 
         // Process filer JSON column into a file_summary array
-        $entries->each(function ($entry) {
-            $entry->file_summary = is_string($entry->filer) && !empty($entry->filer)
-                ? json_decode($entry->filer, true) ?? []
-                : [];
-            unset($entry->filer);
-        });
 
-        return Response::json($entries->toArray());
+
+        return Response::json([
+            'count' => $entries->count(),
+            'contents' => [
+                [
+                    'text' => $entries->map(function ($entry) {
+                        return [
+                            'id'       => $entry->id,
+                            'name'     => $entry->name,
+                            'catid'    => $entry->catid,
+                            'des'      => $entry->des,
+                            'dess'     => $entry->dess,
+                            'knowledgebasefile' => $entry->filer,
+                            'knowledgebaseimg'  => $entry->img,
+                            'dater' => $entry->created_at
+                            ? Carbon::parse($entry->created_at)->format('d F Y H:i')
+                            : null,
+                            'cat' => $entry->cat ? [
+                                'id'           => $entry->cat->id,
+                                'name'         => $entry->cat->name,
+                                'department'   => $entry->cat->department,
+                                'categoryfile' => $entry->cat->filer,
+                            ] : null,
+                        ];
+                    })->values()->toJson(JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+                ],
+            ],
+        ]);
+
+
     }
 }
