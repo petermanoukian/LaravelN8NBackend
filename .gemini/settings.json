@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "ping-server": {
+      "command": "C:/wamp/bin/php/php8.2.0/php.exe",
+      "args": ["mcp-adapter.php"],
+      "cwd": "C:/wamp/www/laraveln8n/laraveln8n"
+    }
+  }
+}

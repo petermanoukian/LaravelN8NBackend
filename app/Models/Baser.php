@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cat;
+use App\Models\BaserSuggestion;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -26,4 +27,11 @@ class Baser extends Model
     {
         return $this->belongsTo(Cat::class, 'catid'); // explicit foreign key
     }
+
+    public function bassuggestions()
+    {
+        return $this->hasMany(BaserSuggestion::class, 'catid'); // explicit foreign key
+    }
+
+
 }

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('basers', function (Blueprint $table) {
-                $table->unsignedBigInteger('catid'); // ✅ not nullable
+            $table->unsignedBigInteger('catid'); // ✅ not nullable
 
-                $table->foreign('catid')
-                    ->references('id')
-                    ->on('cats')
-                    ->onDelete('cascade'); // delete basers if cat is deleted
+            $table->foreign('catid')
+                ->references('id')
+                ->on('cats')
+                ->onDelete('cascade'); // delete basers if cat is deleted
         });
     }
 

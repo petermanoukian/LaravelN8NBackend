@@ -3,14 +3,15 @@
 namespace App\Mcp\Tools;
 
 use App\Models\Baser;
-use Laravel\Mcp\Server\Tool;
+use Illuminate\Support\Facades\Log;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
-use Illuminate\Support\Facades\Log;
+use Laravel\Mcp\Server\Tool;
 
 class CreateKnowledgeBaseTool extends Tool
 {
     protected string $name = 'create-knowledge-base';
+
     protected string $description = 'Create a new knowledge base entry with name, catid, description, and optional files/images.';
 
     public function handle(Request $request): Response
@@ -18,28 +19,28 @@ class CreateKnowledgeBaseTool extends Tool
         // Decode raw JSON body like Resource does
         $raw = json_decode(file_get_contents('php://input'), true);
         $params = $raw['params'] ?? [];
-        $args   = $params['arguments'] ?? [];
+        $args = $params['arguments'] ?? [];
 
-        Log::info("CreateKnowledgeBaseTool RAW", $raw);
-        Log::info("CreateKnowledgeBaseTool ARGS", $args);
+        Log::info('CreateKnowledgeBaseTool RAW', $raw);
+        Log::info('CreateKnowledgeBaseTool ARGS', $args);
 
         // Validate required fields
         if (empty($args['name']) || empty($args['catid'])) {
-            return Response::error("Missing required fields: name, catid");
+            return Response::error('Missing required fields: name, catid');
         }
 
         $entry = Baser::create([
-            'name'       => $args['name'],
-            'catid'      => $args['catid'],
-            'img'        => $args['img'] ?? null,
-            'img2'       => $args['img2'] ?? null,
-            'filer'      => $args['filer'] ?? null,
-            'des'        => $args['des'] ?? null,
-            'dess'       => $args['dess'] ?? null,
+            'name' => $args['name'],
+            'catid' => $args['catid'],
+            'img' => $args['img'] ?? null,
+            'img2' => $args['img2'] ?? null,
+            'filer' => $args['filer'] ?? null,
+            'des' => $args['des'] ?? null,
+            'dess' => $args['dess'] ?? null,
         ]);
 
         // Decode filer JSON column into file_summary array
-        $entry->file_summary = is_string($entry->filer) && !empty($entry->filer)
+        $entry->file_summary = is_string($entry->filer) && ! empty($entry->filer)
             ? json_decode($entry->filer, true) ?? []
             : [];
 

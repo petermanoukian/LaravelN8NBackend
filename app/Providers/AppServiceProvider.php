@@ -2,16 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-use App\Repositories\Contracts\UserRepositoryInterface;
-use App\Repositories\UserRepository;
-use App\Repositories\Contracts\CatRepositoryInterface;
+use App\Repositories\BaserRepository;
+use App\Repositories\BaserSuggestionRepository;
 use App\Repositories\CatRepository;
 use App\Repositories\Contracts\BaserRepositoryInterface;
-use App\Repositories\BaserRepository;
-
-
+use App\Repositories\Contracts\BaserSuggestionRepositoryInterface;
+use App\Repositories\Contracts\CatRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\UserRepository;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(CatRepositoryInterface::class, CatRepository::class);
         $this->app->bind(BaserRepositoryInterface::class, BaserRepository::class);
+        $this->app->bind(BaserSuggestionRepositoryInterface::class, BaserSuggestionRepository::class);
     }
 
     /**
@@ -31,6 +31,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Support\Facades\Schema::defaultStringLength(191);
+
+        if (class_exists(\Laravel\Mcp\Server::class)) {
+            // Override the supported versions to include Gemini's version
+            config([
+                'mcp.supported_protocol_versions' => [
+                    '2025-11-25',  // Add Gemini's version
+                    '2025-06-18',
+                    '2025-03-26',
+                    '2024-11-05',
+                ],
+            ]);
+        }
+
     }
 
     protected $listen = [
@@ -39,7 +52,4 @@ class AppServiceProvider extends ServiceProvider
             \App\Listeners\NotifyN8NListener::class,
         ],
     ];
-
-
-
 }

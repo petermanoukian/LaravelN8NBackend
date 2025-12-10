@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 03, 2025 at 06:52 PM
+-- Generation Time: Dec 10, 2025 at 02:28 PM
 -- Server version: 5.7.40
 -- PHP Version: 8.2.0
 
@@ -64,6 +64,90 @@ INSERT INTO `basers` (`id`, `catid`, `name`, `img`, `img2`, `filer`, `des`, `des
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `baser_suggestions`
+--
+
+DROP TABLE IF EXISTS `baser_suggestions`;
+CREATE TABLE IF NOT EXISTS `baser_suggestions` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sheetid` int(10) UNSIGNED DEFAULT NULL,
+  `baser_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `des` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published` enum('Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'No',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `baser_suggestions_baser_id_foreign` (`baser_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `baser_suggestions`
+--
+
+INSERT INTO `baser_suggestions` (`id`, `sheetid`, `baser_id`, `name`, `des`, `published`, `created_at`, `updated_at`) VALUES
+(1, 1, 15, 'Suggection1', 'Details 1', 'No', '2025-12-10 09:31:11', '2025-12-10 09:31:11'),
+(2, 3, 9, 'Server Log Snippet sugegstion 22', 'Details 3', 'No', '2025-12-10 09:31:11', '2025-12-10 09:31:11'),
+(3, 4, 3, 'Services sugg1', 'details 5', 'No', '2025-12-10 09:31:11', '2025-12-10 09:31:11'),
+(4, 6, 9, 'Brand New', 'So many sugegstions', 'No', '2025-12-10 09:31:11', '2025-12-10 09:31:11'),
+(5, 7, 9, 'new 2', 'Example Server Log Snippet: Database Connection Failure', 'No', '2025-12-10 09:31:11', '2025-12-10 09:31:11'),
+(6, 8, 9, 'closer', 'hghghghgg', 'No', '2025-12-10 09:31:11', '2025-12-10 09:31:11'),
+(7, 10, 6, 'trytr', 'yytt', 'No', '2025-12-10 09:31:12', '2025-12-10 09:31:12'),
+(8, 11, 7, '12', '24', 'No', '2025-12-10 09:31:12', '2025-12-10 09:31:12'),
+(9, 14, 7, 'title1 version 1', 'suggestion 111', 'No', '2025-12-10 09:31:14', '2025-12-10 09:57:06'),
+(10, 15, 7, 'lorem impusserr version 2', 'loremme ipmsumeerrr', 'No', '2025-12-10 09:31:14', '2025-12-10 09:57:06'),
+(11, 16, 7, 'place thect hereee version 3', 'tetx detailsss', 'No', '2025-12-10 09:31:14', '2025-12-10 09:57:06'),
+(12, 17, 7, 'title 4 version 4', 'detials 4', 'No', '2025-12-10 09:31:14', '2025-12-10 09:57:06'),
+(13, 18, 7, 'a menaingful title', 'menaingfuld etials', 'No', '2025-12-10 09:31:14', '2025-12-10 09:57:06'),
+(14, 19, 7, 'second emaniningful title', 'lorem impuse 0000', 'No', '2025-12-10 09:31:14', '2025-12-10 09:57:06'),
+(15, 20, 7, 'soemtjhgn emaningful', 'lorem ipsum 1', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(16, 21, 7, 'soemthgn that has a emaning', 'lorem ipsum 2', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(17, 22, 15, 'strings words and text insetd of number', 'lorem impusm 3', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(18, 25, 4, 'the oen with baseid', 'the oen wth baeid detailss', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(19, 26, 7, 'New Tow', 'new tewod etuialssss', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(20, 23, 9, 'text 8nstead of number', 'these are my suggestions regardingint', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(21, 24, 7, 'NEW ONE version 5', 'NEW ONE details', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(22, 28, 6, 'Performance Snapshot sugg', 'suggerettold', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(23, 29, 6, 'gfgf version 666666', 'gfgffggd', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(24, 30, 6, 'fgf version 77777', 'gfggggf', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(25, 31, 6, 'NEW threee version 1', 'NRw threeeeeee detials', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(26, 32, 5, 'new4 new 4 update version 1', 'new4 detial update 1', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(27, 34, 5, 'new6 new 6 update version 3', 'new6', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:06'),
+(28, 35, 5, 'new7 new 7 update version 4', 'new7', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(29, 36, 4, 'new8 new 8 update', 'new8', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(30, 37, 3, 'Sheet 37 upd 1', 'new 9 details det upd 1', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(31, 38, 3, 'Sheet 38 upd 1', 'new 10d etailsss det upd 1', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(32, 39, 7, 'new 11 upd1', 'new 11 detials update the detyaisl of new 11', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(33, 40, 7, 'new12 upd2', '12 deetails update the12th details', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(34, 41, 7, 'new 13 upd 3', '13th detaillss updatng the detailsss', 'No', '2025-12-10 09:31:15', '2025-12-10 09:57:07'),
+(35, 43, 7, 'new 15 updating one more', 'new 15 details upd222222 upddaae number 15 updateing', 'No', '2025-12-10 09:31:16', '2025-12-10 09:57:07'),
+(36, 44, 7, 'new 16 Frank 5', 'new 16 details Frank 5', 'No', '2025-12-10 09:31:16', '2025-12-10 09:57:07'),
+(37, 45, 7, 'new 17 Frank 4', 'new 17 details Frank 4', 'No', '2025-12-10 09:31:16', '2025-12-10 09:57:07'),
+(38, 46, 7, 'new 18 Frank 3', 'new 18 detials Frank 3', 'No', '2025-12-10 09:31:16', '2025-12-10 09:57:07'),
+(39, 47, 3, 'new 19 Frank 2', 'new 19 detailssss Frank 2', 'No', '2025-12-10 09:31:16', '2025-12-10 09:57:07'),
+(40, 48, 3, 'new 20 Frank 1', 'new 20 detials Frank 1', 'No', '2025-12-10 09:31:16', '2025-12-10 09:57:07'),
+(41, 49, 3, 'frank 22222', 'newwrtyyuu', 'No', '2025-12-10 09:37:03', '2025-12-10 09:57:07'),
+(42, 50, 3, 'grfrank17 lorem ipsum', 'jhjjhhhhh', 'No', '2025-12-10 09:37:34', '2025-12-10 09:57:07'),
+(43, 55, 15, 'Frank 19 update', 'Lorem ipsum 19', 'No', '2025-12-10 09:45:42', '2025-12-10 09:57:07'),
+(44, 56, 15, 'Frank 20 tttt Finance Entry', 'Lorem Ipsum 20 update23444', 'No', '2025-12-10 09:45:42', '2025-12-10 09:57:07'),
+(45, 57, 15, 'Frank 21 ghr5667', 'Loprem Ipsum 21 update', 'No', '2025-12-10 09:46:34', '2025-12-10 09:57:08'),
+(46, 51, 4, 'November 22 oinly imaageeee', 'Loem pmus45677', 'No', '2025-12-10 09:49:03', '2025-12-10 09:57:07'),
+(47, 52, 2, 'lorem ipsum55333', 'lorem ipluss 51234', 'No', '2025-12-10 09:49:08', '2025-12-10 09:57:07'),
+(48, 53, 4, 'November 22 oinly imaageee lorem ipsum3', 'lorem 1psum543', 'No', '2025-12-10 09:49:08', '2025-12-10 09:57:07'),
+(49, 54, 15, 'Frnak 18 base222', 'Lorem ipsum frank 18 base222', 'No', '2025-12-10 09:49:08', '2025-12-10 09:57:07'),
+(50, 59, 9, 'frank 23 Timeline Tracker', 'frank 23 lorem ppsum', 'No', '2025-12-10 09:50:02', '2025-12-10 09:57:08'),
+(51, 58, 9, 'frank 22 yyupfdtae 2333', 'Frank 22 German', 'No', '2025-12-10 09:50:03', '2025-12-10 09:57:08'),
+(52, 60, 9, 'frank24 German', 'frank24', 'No', '2025-12-10 09:50:07', '2025-12-10 09:57:08'),
+(53, 61, 9, 'framk25 German', 'frank25', 'No', '2025-12-10 09:50:07', '2025-12-10 09:57:08'),
+(54, 62, 15, 'frank26 German', 'frank 26 detailsss German', 'No', '2025-12-10 09:50:34', '2025-12-10 09:57:08'),
+(55, 63, 9, 'frank 27 German 1', 'frank 27 detailssss', 'No', '2025-12-10 09:51:02', '2025-12-10 09:57:08'),
+(56, 64, 9, 'base 1 Server Log Snippet', 'base 1', 'No', '2025-12-10 09:53:02', '2025-12-10 09:57:08'),
+(57, 65, 9, 'base 2 Server Log Snippet', 'base 2', 'No', '2025-12-10 09:53:09', '2025-12-10 09:57:08'),
+(58, 66, 15, 'Timeline Tracker 1 Server Log Snippet', 'Timeline Tracker 2222', 'No', '2025-12-10 09:53:34', '2025-12-10 09:57:08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cache`
 --
 
@@ -80,10 +164,8 @@ CREATE TABLE IF NOT EXISTS `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab:timer', 'i:1764784177;', 1764784177),
-('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab', 'i:1;', 1764784177),
-('laravel-cache-424f74a6a7ed4d4ed4761507ebcd209a6ef0937b:timer', 'i:1764615703;', 1764615703),
-('laravel-cache-424f74a6a7ed4d4ed4761507ebcd209a6ef0937b', 'i:1;', 1764615703);
+('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab:timer', 'i:1765375296;', 1765375296),
+('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab', 'i:2;', 1765375296);
 
 -- --------------------------------------------------------
 
@@ -117,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `cats` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cats_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `cats`
@@ -150,7 +232,13 @@ INSERT INTO `cats` (`id`, `name`, `department`, `img`, `img2`, `filer`, `created
 (249, 'Markee887tt', 'Marketing', NULL, NULL, 'uploads/files/cat/Markee887tt_1764775870_693057be00336.csv', '2025-12-03 11:31:09', '2025-12-03 11:33:19'),
 (250, 'MArket99', 'Marketing', NULL, NULL, 'uploads/files/cat/MArket99_1764775927_693057f78b894.csv', '2025-12-03 11:32:07', '2025-12-03 11:32:07'),
 (251, 'market10', 'Marketing', 'uploads/img/cat/market10-1764775974_69305826acbd8.jpg', 'uploads/img/cat/thumb/market10-1764775974_69305826acbd8.jpg', 'uploads/files/cat/market10_1764775975_693058275642b.pdf', '2025-12-03 11:32:54', '2025-12-03 11:32:55'),
-(252, 'MArket756', 'Marketing', NULL, NULL, 'uploads/files/cat/MArket756_1764776042_6930586ab18c4.docx', '2025-12-03 11:34:02', '2025-12-03 11:34:02');
+(252, 'MArket756', 'Marketing', NULL, NULL, 'uploads/files/cat/MArket756_1764776042_6930586ab18c4.docx', '2025-12-03 11:34:02', '2025-12-03 11:34:02'),
+(253, 'dec777', 'Marketing', 'uploads/img/cat/dec777-1765134300_6935cfdcb9e64.jpg', 'uploads/img/cat/thumb/dec777-1765134300_6935cfdcb9e64.jpg', NULL, '2025-12-07 15:05:00', '2025-12-07 15:05:00'),
+(254, 'ASSSS', 'Sales', 'uploads/img/cat/ASSSS-1765134530_6935d0c25cdb6.jpg', 'uploads/img/cat/thumb/ASSSS-1765134530_6935d0c25cdb6.jpg', NULL, '2025-12-07 15:08:50', '2025-12-07 15:08:50'),
+(255, 'imhhhggg', 'Sales', 'uploads/img/cat/imhhhggg-1765134602_6935d10a52f27.jpg', 'uploads/img/cat/thumb/imhhhggg-1765134602_6935d10a52f27.jpg', NULL, '2025-12-07 15:10:02', '2025-12-07 15:10:02'),
+(256, 'onluyt textttt', NULL, NULL, NULL, NULL, '2025-12-07 15:13:09', '2025-12-07 15:13:09'),
+(257, 'rt5677', NULL, NULL, NULL, NULL, '2025-12-07 15:15:18', '2025-12-07 15:15:18'),
+(258, 'Decembr8', NULL, NULL, NULL, NULL, '2025-12-08 04:59:14', '2025-12-08 04:59:14');
 
 -- --------------------------------------------------------
 
@@ -274,14 +362,15 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`),
   KEY `personal_access_tokens_expires_at_index` (`expires_at`)
-) ENGINE=MyISAM AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `personal_access_tokens`
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(161, 'App\\Models\\User', 1, 'login', '79cb87c2a789c594accd36e743ccc2536893faddf233f4403f760a6b4ac42bc0', '[\"*\"]', '2025-12-03 13:48:37', '2025-12-31 15:00:43', '2025-12-01 15:00:43', '2025-12-03 13:48:37');
+(170, 'App\\Models\\User', 1, 'login', '3b763706c0cfd6b0f93a1f2030be60307a15957b342a44b1ad8c7c0e6e07641a', '[\"*\"]', '2025-12-10 10:00:42', '2026-01-06 13:48:08', '2025-12-07 13:48:08', '2025-12-10 10:00:42'),
+(169, 'App\\Models\\User', 1, 'login', '4f03c3ea3135cc7da0a73c5823e7dc661c486fa19f3442ed2f548eb0eebffa0c', '[\"*\"]', '2025-12-07 13:47:23', '2026-01-06 12:50:56', '2025-12-07 12:50:56', '2025-12-07 13:47:23');
 
 -- --------------------------------------------------------
 
@@ -307,7 +396,12 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Zh4ycQAypi8fAT2YSV5i9UIxX1Z3Q9ZwsVCLScSK', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSGFvRTdsREtLVWJGN3dQdjJjVTMxaG5IcHBuU2pORld0Z3Jyb1Q4MSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozNzoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2FkbWluL2NhdHMvdmlldyI7czo1OiJyb3V0ZSI7czoxNToiY2F0cy5pbmRleGFkbWluIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1764776044);
+('2QPZlHTJ9GPxDaXIuteYjfhKdfFkLdSTouwkaiCW', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiSW9oU2NuaWZyTzUwbjhTU3FZUXB0Q3FEb3NpZVRvNENxWVFGRGZCWiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYWRtaW4vY2F0cy92aWV3IjtzOjU6InJvdXRlIjtzOjE1OiJjYXRzLmluZGV4YWRtaW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTc2NTE4MjY0Mzt9fQ==', 1765184360),
+('OkfWhM48o2omtRI0GTzUyet1y8cOtSPDTE4NvaJf', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNWU5RHZIVWJRbkNZNWF2ODZSbnBMbUZBOFVicE41bDVXbndmcU5OUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9jYXRzL3ZpZXciO3M6NToicm91dGUiO3M6MTU6ImNhdHMuaW5kZXhhZG1pbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzY1MTI2MjI0O319', 1765134923),
+('wm24KDIQ5hRVqGb1b3Bcruhl1xHPSTyiBGFPPR5k', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiM0dBWmNGeWZDYlhMOXFuNUgxU3NxUWZCREMyMzM4Ymdab2RoMkNITyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM5OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYWRtaW4vYmFzZXJzL3ZpZXciO3M6NToicm91dGUiO3M6MTc6ImJhc2Vycy5pbmRleGFkbWluIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3NjUxOTI1NjE7fX0=', 1765192579),
+('tEcwzVPbei7zK4v2dIpU8OChyyd16RHbapZMXSzd', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMzVOdE9FYzRwRjVTRE5yZlRiUWQ2UFRHZVl5aGloTFJTN3pWTmhpVyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9iYXNlcnMvdmlldyI7czo1OiJyb3V0ZSI7czoxNzoiYmFzZXJzLmluZGV4YWRtaW4iO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTc2NTIxNjEyNzt9fQ==', 1765217156),
+('O9ZNccCkYAh0X4WmJyI32DYTjakF22nKcu67qDON', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRDB6NjV1czBUQUNLRVZMRTZQbEZJWUZSMmFldUtqVkRLeG83clRiTSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozOToiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2FkbWluL2Jhc2Vycy92aWV3IjtzOjU6InJvdXRlIjtzOjE3OiJiYXNlcnMuaW5kZXhhZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1765283901),
+('deK383OSB8ItrU3EdWau3nk7C204SBj9grJ1eHfj', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQzdaeXVPSzVzc0U1UkhzVHRqMlAyUWdkT083ZXh6bUlObTZNRzRGNCI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozOToiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2FkbWluL2Jhc2Vycy92aWV3IjtzOjU6InJvdXRlIjtzOjE3OiJiYXNlcnMuaW5kZXhhZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1765363198);
 
 -- --------------------------------------------------------
 
@@ -334,8 +428,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'n8n', 'bediktest@gmail.com', NULL, '$2y$12$Y6JvORv.hsyfNoxWJgxw9.Du43BPAM3l/GEIP.YKk10D4HwIkpsL.', 'puXvrssLuNAwmqyI8fn7is2ToR0cIu5p9l88T1RzUrHYsFw9Q4haibFrhCPN', '2025-11-08 14:37:27', '2025-11-08 14:37:27'),
-(2, 'Admin', 'bedikmanoukian07@gmail.com', NULL, '$2y$12$SHLkU.kT9CRoYI4yMCh8DeACUFUkb05SrlMp/6qDBfqvsJpoVtLhK', 'WGkHX7ggFo40INh8xB0KtMHcvOcPMa7pLosx7MPBkIajMHODlCwF2XrCNocW', '2025-11-13 13:21:24', '2025-11-13 13:21:24'),
+(1, 'n8n', 'bediktest@gmail.com', NULL, '$2y$12$Y6JvORv.hsyfNoxWJgxw9.Du43BPAM3l/GEIP.YKk10D4HwIkpsL.', 'wJGLooEpgnd4OvERNvv9jyyIVR41oRYHNSrskaUgWdvCTYCsU6ASkghY7iC1', '2025-11-08 14:37:27', '2025-11-08 14:37:27'),
+(2, 'Admin', 'bedikmanoukian07@gmail.com', NULL, '$2y$12$Y6JvORv.hsyfNoxWJgxw9.Du43BPAM3l/GEIP.YKk10D4HwIkpsL.', '', '2025-11-13 13:21:24', '2025-11-13 13:21:24'),
 (3, 'test', 'test@test.com', NULL, '$2y$12$Y6JvORv.hsyfNoxWJgxw9.Du43BPAM3l/GEIP.YKk10D4HwIkpsL.', NULL, '2025-12-01 14:01:09', '2025-12-01 14:01:09');
 COMMIT;
 

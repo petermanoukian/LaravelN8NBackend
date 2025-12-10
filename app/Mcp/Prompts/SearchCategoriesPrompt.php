@@ -2,25 +2,26 @@
 
 namespace App\Mcp\Prompts;
 
-use Laravel\Mcp\Server\Prompt;
+use App\Models\Cat;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
-use App\Models\Cat;
+use Laravel\Mcp\Server\Prompt;
 
 class SearchCategoriesPrompt extends Prompt
 {
     protected string $name = 'search-categories';
+
     protected string $description = 'Search categories by name and/or department with LIKE matching and AND/OR logic.';
 
     public function handle(Request $request): Response
     {
-        $raw    = json_decode(file_get_contents('php://input'), true);
+        $raw = json_decode(file_get_contents('php://input'), true);
         $params = $raw['params'] ?? [];
-        $args   = $params['arguments'] ?? [];
+        $args = $params['arguments'] ?? [];
 
-        $search1    = $args['search1'] ?? null;
-        $search2    = $args['search2'] ?? null;
-        $searchFor  = strtolower($args['searchFor'] ?? 'both'); // name, department, or both
+        $search1 = $args['search1'] ?? null;
+        $search2 = $args['search2'] ?? null;
+        $searchFor = strtolower($args['searchFor'] ?? 'both'); // name, department, or both
         $searchType = strtoupper($args['searchType'] ?? 'OR');  // AND or OR
 
         $query = Cat::query();
@@ -34,11 +35,11 @@ class SearchCategoriesPrompt extends Prompt
             } else { // both
                 if ($searchType === 'AND') {
                     $query->where('name', 'like', "%{$search1}%")
-                          ->where('department', 'like', "%{$search1}%");
+                        ->where('department', 'like', "%{$search1}%");
                 } else {
                     $query->where(function ($q) use ($search1) {
                         $q->where('name', 'like', "%{$search1}%")
-                          ->orWhere('department', 'like', "%{$search1}%");
+                            ->orWhere('department', 'like', "%{$search1}%");
                     });
                 }
             }
@@ -48,11 +49,11 @@ class SearchCategoriesPrompt extends Prompt
         elseif ($search1 && $search2) {
             if ($searchType === 'AND') {
                 $query->where('name', 'like', "%{$search1}%")
-                      ->where('department', 'like', "%{$search2}%");
+                    ->where('department', 'like', "%{$search2}%");
             } else {
                 $query->where(function ($q) use ($search1, $search2) {
                     $q->where('name', 'like', "%{$search1}%")
-                      ->orWhere('department', 'like', "%{$search2}%");
+                        ->orWhere('department', 'like', "%{$search2}%");
                 });
             }
         }

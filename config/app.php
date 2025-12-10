@@ -105,6 +105,8 @@ return [
         ),
     ],
 
+    'n8n_domain' => env('N8N_DOMAIN', 'http://localhost:5678'),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

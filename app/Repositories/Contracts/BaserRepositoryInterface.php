@@ -18,6 +18,11 @@ interface BaserRepositoryInterface
 
     public function deleteMany(array $ids): int;
 
+    public function findByNameLike(string $name): ?Baser;
+    public function findBestByName(string $name): ?Baser;
+    
+
+
     /**
      * Return all basers as a collection.
      */

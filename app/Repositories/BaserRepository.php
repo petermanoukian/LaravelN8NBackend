@@ -15,6 +15,47 @@ class BaserRepository implements BaserRepositoryInterface
         return Baser::find($id);
     }
 
+    public function findByNameLike(string $name): ?Baser  // No limit param
+    {
+        $normalized = $this->normalize($name);
+        return Baser::query()
+            ->whereRaw('LOWER(name) LIKE ?', ['%'.$normalized.'%'])
+            ->first();  // Single row or null
+    }
+
+    public function findBestByName(string $name): ?Baser
+    {
+        $candidates = $this->findByNameLike($name, 10);
+        if ($candidates->isEmpty()) {
+            return null;
+        }
+
+        // Optional: pick the best candidate by Levenshtein distance on normalized names
+        $normalized = $this->normalize($name);
+        $best = null;
+        $bestScore = PHP_INT_MAX;
+
+        foreach ($candidates as $c) {
+            $dist = levenshtein($normalized, $this->normalize($c->name));
+            if ($dist < $bestScore) {
+                $bestScore = $dist;
+                $best = $c;
+            }
+        }
+
+        return $best;
+    }
+
+    protected function normalize(string $s): string
+    {
+        // Lowercase, trim, collapse spaces; add more as needed (accents, punctuation)
+        $s = mb_strtolower(trim($s));
+        $s = preg_replace('/\s+/', ' ', $s);
+        return $s;
+    }
+
+
+
     public function create(array $data): Baser
     {
         $baser = Baser::create($data);
