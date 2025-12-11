@@ -62,7 +62,9 @@ class BaserSuggestionTool extends Tool
                 return $this->_updateBaserSuggestion($arguments);
             case 'delete':
                 return $this->_deleteBaserSuggestion($arguments);
-                
+            case 'delete_by_sheetid':
+                \Log::info('BaserSuggestionTool: Routed to delete_by_sheetid.', ['arguments' => $arguments]);
+                return $this->_deleteBySheetId($arguments);
             default:
                 return Response::error('Internal Error: Action should be defaulted to "create".');
         }
@@ -209,10 +211,6 @@ class BaserSuggestionTool extends Tool
             return Response::error('Failed to upsert Baser suggestion: '.$e->getMessage());
         }
     }
-
-
-
-
 
 
 
@@ -402,4 +400,65 @@ class BaserSuggestionTool extends Tool
             return Response::error('Failed to delete Baser suggestion: '.$e->getMessage());
         }
     }
+
+
+    protected function _deleteBySheetId(array $arguments): Response
+    {
+        // NEW: Log on immediate entry to confirm function hit
+        \Log::emergency('BaserSuggestionTool: _deleteBySheetId ENTRY HIT!', ['arguments' => $arguments]);
+
+        // Extract sheetid—required for delete by sheetid
+        $sheetId = $arguments['sheetid'] ?? $arguments['SuggestionID'] ?? null;
+        if (!$sheetId) {
+            // Silent exit if no sheetid (as per requirement)
+            \Log::warning('BaserSuggestionTool: No sheetid provided for delete by sheetid, exiting silently.');
+            return Response::json([
+                'success' => false,
+                'message' => 'No sheetid provided, operation skipped.',
+                'skipped' => true,
+            ]);
+        }
+
+        $validator = Validator::make(['sheetid' => $sheetId], [
+            'sheetid' => ['required', 'integer'],
+        ]);
+
+        if ($validator->fails()) {
+            return Response::error('Validation failed for delete by sheetid: '.$validator->errors()->first());
+        }
+
+        try {
+            // Find by sheetid
+            $suggestion = $this->baserSuggestionRepository->findBySheetId($sheetId);
+
+            if (!$suggestion) {
+                \Log::warning('BaserSuggestionTool: Suggestion not found for delete by sheetid.', ['sheetid' => $sheetId]);
+                return Response::json([
+                    'success' => false,
+                    'message' => 'Suggestion with this sheetid not found.',
+                    'not_found' => true,
+                    'sheetid' => $sheetId,
+                ]);
+            }
+
+            $deleted = $this->baserSuggestionRepository->delete($suggestion->id);
+
+            if (!$deleted) {
+                return Response::error('Failed to delete Baser suggestion.');
+            }
+
+            \Log::info('BaserSuggestionTool: Suggestion deleted by sheetid.', ['sheetid' => $sheetId, 'id' => $suggestion->id]);
+
+            return Response::json([
+                'success' => true,
+                'message' => 'Baser suggestion deleted successfully by sheetid.',
+                'sheetid' => $sheetId,
+                'id' => $suggestion->id,
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to delete Baser suggestion by sheetid', ['error' => $e->getMessage(), 'sheetid' => $sheetId]);
+            return Response::error('Failed to delete Baser suggestion by sheetid: '.$e->getMessage());
+        }
+    }
+
 }
