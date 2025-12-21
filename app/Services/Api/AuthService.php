@@ -15,7 +15,7 @@ class AuthService
 {
     public function __construct(protected UserRepositoryInterface $users) {}
 
-
+    /*
     public function checkAuth(Request $request): array
     {
         return [
@@ -24,7 +24,26 @@ class AuthService
             'user' => $request->user(),
         ];
     }
+    */
 
+    public function checkAuth(Request $request): array
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return [
+                'authenticated' => false,
+                'isauthenticatedbysanctumfirstcheck' => 10,
+                'user' => null,
+            ];
+        }
+
+        return [
+            'authenticated' => true,
+            'isauthenticatedbysanctumfirstcheck' => 414,
+            'user' => $user,
+        ];
+    }
 
 
     public function confirmCsrf(): array

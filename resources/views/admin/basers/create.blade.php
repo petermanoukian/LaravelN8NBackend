@@ -33,7 +33,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="ded" class="form-label">Short Description</label>
+            <label for="des" class="form-label">Short Description</label>
             <textarea class="form-control" id="des" name="des" rows="3" placeholder="Enter a brief summary..." ></textarea>
         </div>
 
