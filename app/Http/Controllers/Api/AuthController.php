@@ -17,8 +17,6 @@ class AuthController extends Controller
         return response()->json($this->auth->checkAuth($request));
     }
 
-
-    
     public function csrfCookie(Request $request): JsonResponse
     {
         return response()->json($this->auth->confirmCsrf());

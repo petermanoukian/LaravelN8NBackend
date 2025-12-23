@@ -95,6 +95,7 @@ class ImageUploadService
         $largeDir = dirname($largePath);
         if (!file_exists($largeDir)) {
             mkdir($largeDir, 0755, true);
+            Log::info("ImageUploadService: created large folder");
         }
 
         $smallDir = dirname($smallPath);
@@ -114,11 +115,11 @@ class ImageUploadService
             });
         }
         $image->save($largePath);
-
+        Log::info("ImageUploadService: saved large image");
         // Thumbnail: e.g., cover to 200x200 (cropped square, adjust as needed)
         $thumbImage = $manager->read($file->getPathname());
         $thumbImage->cover(200, 200)->save($smallPath);
-
+        Log::info("ImageUploadService: saved thumbnail");
         return [
             'large' => $relativeLargePath,
             'small' => $relativeSmallPath,
