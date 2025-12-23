@@ -48,7 +48,10 @@
         </div>
 
         <div class="mb-3">
-            <label for="filer" class="form-label">File</label>
+            <label for="filer" class="form-label">File
+
+                (Optional: txt, doc, docx, pdf, gif, jpeg, jpg, png, excel, csv)
+            </label>
             @if($baser->filer)
                 <div><a href="{{ asset($baser->filer) }}" target="_blank">Current File</a></div>
             @endif

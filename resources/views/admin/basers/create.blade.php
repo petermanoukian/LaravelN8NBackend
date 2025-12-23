@@ -50,7 +50,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="filer" class="form-label">File (Optional: txt, doc, docx, pdf, gif, jpeg, jpg, png)</label>
+            <label for="filer" class="form-label">File (Optional: txt, doc, docx, pdf, gif, jpeg, jpg, png, excel, csv)</label>
             <input type="file" class="form-control" id="filer" name="filer"
             accept=".txt,.doc,.docx,.pdf,.csv,.xls,.xlsx,.json,image/gif,image/jpeg,image/jpg,image/png,image/webp,image/tiff">
         </div>
