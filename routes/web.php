@@ -27,4 +27,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/home', [AdminHomeController::class, 'index'])->name('admin.home');
     require __DIR__.'/admin/cats.php';
     require __DIR__.'/admin/basers.php';
+    require __DIR__.'/admin/external.php';
 });

@@ -43,6 +43,16 @@ return [
             'transaction_mode' => 'DEFERRED',
         ],
 
+
+        'sqlite_external' => [
+            'driver' => 'sqlite',
+            'url' => env('DB_URL'),
+            'database' => env('DB_SQLITE_EXTERNAL_PATH'),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
@@ -112,6 +122,22 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+
+
+
+
+        'mongodb' => [
+                'driver'   => 'mongodb',
+                'host'     => env('MONGO_DB_HOST', '127.0.0.1'),
+                'port'     => env('MONGO_DB_PORT', 27017),
+                'database' => env('MONGO_DB_DATABASE'),
+                'username' => env('MONGO_DB_USERNAME'),
+                'password' => env('MONGO_DB_PASSWORD'),
+                'options'  => [
+                    'database' => 'admin', // authentication db, safe default
+                ],
+            ],
+
 
     ],
 
