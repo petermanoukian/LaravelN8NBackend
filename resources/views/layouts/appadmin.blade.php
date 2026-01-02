@@ -86,31 +86,30 @@
                             </ul>
                         </div>
 
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="externalDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                External
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="externalDropdown">
+                                {{-- Product Categories --}}
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('external.prodcats.index') }}">
+                                        Product Categories
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('external.prods.index') }}">
+                                        Products
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('external.login8001.index') }}">
+                                        Login to 8001
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-
-<div class="dropdown">
-    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="externalDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        External
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="externalDropdown">
-        {{-- Product Categories --}}
-        <li>
-            <a class="dropdown-item" href="{{ route('external.prodcats.index') }}">
-                Product Categories
-            </a>
-        </li>
-
-        {{-- Products (placeholder, no route yet) --}}
-        <li>
-            <a class="dropdown-item" href="#">
-                Products
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-                        <!-- Add more items here on the same line -->
                     </div>
                 </nav>
 

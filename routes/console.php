@@ -10,3 +10,7 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command('sync:prodcats')->everyTwoMinutes();
+Schedule::command('sync:prods')->everyTwoMinutes();
+
+
+

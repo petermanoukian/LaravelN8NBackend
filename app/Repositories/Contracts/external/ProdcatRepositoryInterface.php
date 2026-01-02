@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Contracts\external;
 
-use App\Models\Prodcat;
+use App\Models\external\Prodcat;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Pagination\LengthAwarePaginator;

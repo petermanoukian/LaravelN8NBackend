@@ -108,6 +108,26 @@ return [
             'sslmode' => 'prefer',
         ],
 
+
+        'pgsql_common' => [
+            'driver' => 'pgsql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_PGSQL_HOST', '127.0.0.1'),
+            'port' => env('DB_PGSQL_PORT', '5432'),
+            'database' => env('DB_PGSQL_DATABASE', 'common_db'),
+            'username' => env('DB_PGSQL_USERNAME', 'postgres'),
+            'password' => env('DB_PGSQL_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+
+
+
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),

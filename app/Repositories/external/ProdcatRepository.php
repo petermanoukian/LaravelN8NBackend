@@ -2,7 +2,7 @@
 
 namespace App\Repositories\external;
 
-use App\Models\Prodcat;
+use App\Models\external\Prodcat;
 use App\Repositories\Contracts\external\ProdcatRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection as SupportCollection;
@@ -223,8 +223,5 @@ class ProdcatRepository implements ProdcatRepositoryInterface
         Log::info("Total deleted from SQLite based on cat.deleted events: {$deletedCount}");
         return $deletedCount;
     }
-
-
-
 
 }

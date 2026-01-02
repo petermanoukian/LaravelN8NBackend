@@ -45,6 +45,9 @@ class ProdcatService
         $this->repository->syncFromMongo();
     }
 
+    public function reconcileDeletesFromMongo(): int { 
+        return $this->repository->reconcileDeletesFromMongo(); 
+    }
 
     
 }

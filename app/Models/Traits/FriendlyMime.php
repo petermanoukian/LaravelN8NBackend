@@ -1,25 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Prodcat extends Model
+trait FriendlyMime
 {
-        protected $fillable = [
-        'originid',
-        'name',
-        'des',
-        'dess',
-        'filer',
-        'filename', 'fileurl',
-        'mime', 
-        'sizer',
-        'extension',
-    ]; 
-
-
-
     public function getFriendlyMimeAttribute(): string
     {
         return match ($this->mime) {
@@ -60,8 +44,4 @@ class Prodcat extends Model
             default => $this->mime ?? 'Unknown',
         };
     }
-
-
-
-
 }

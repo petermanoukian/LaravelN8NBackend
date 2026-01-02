@@ -2,10 +2,27 @@
 
 use App\Http\Controllers\AdminHomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+Route::get('/test-pgsql-common', function () {
+    try {
+        $result = DB::connection('pgsql_common')->select('SELECT 1 AS test');
+        return response()->json(['status' => 'connected', 'result' => $result]);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+    }
+});
+
+
+
+
+
 
 Route::get('/clear', function () {
     $exitCode = \Artisan::call('config:cache');
