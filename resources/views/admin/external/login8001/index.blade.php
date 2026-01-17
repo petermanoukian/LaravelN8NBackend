@@ -54,6 +54,38 @@
 </table>
 
 
+<!-- Products section -->
+<button id="fetchProducts" class="btn btn-info mt-2" style="display:none;">
+    Fetch Products (GraphQL)
+</button>
+
+<table class="table table-striped mt-3" id="productsTable" style="display:none;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody id="productsResult"></tbody>
+</table>
+
+
+<!-- Product dropdown + order form -->
+<div id="orderSection" style="display:none;" class="mt-3">
+    <label for="productSelect">Choose Product:</label>
+    <select id="productSelect" class="form-control"></select>
+
+    <form id="createOrderForm" class="mt-2">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" class="form-control" value="1" min="1">
+        <button type="submit" class="btn btn-success mt-2">Add Order</button>
+    </form>
+</div>
+
+
+
 
 
 <!-- Add this below the table -->
@@ -82,7 +114,10 @@ $(function () {
         $('#logout8001').show();
         $('#login8001').hide();
         $('#fetchCategories').show();
-        $('#categoriesTable').show();
+        //$('#categoriesTable').show();
+        $('#fetchProducts').show();
+        //$('#productsTable').show();
+        //$('#orderSection').show();
         $('#loginResult').html(`
             <tr>
                 <td colspan="6"><strong>Session restored with saved token</strong></td>
@@ -150,7 +185,9 @@ $(function () {
                         $('#logout8001').show(); 
                         $('#login8001').hide();
                         $('#fetchCategories').show();  
-                        $('#categoriesTable').show();
+                        //$('#categoriesTable').show();
+                        $('#fetchProducts').show();
+                        //$('#orderSection').show();
                         window.graphqlToken = response.token;
                         localStorage.setItem('authToken8001', response.token);
                     }
@@ -211,6 +248,9 @@ $(function () {
                     $('#login8001').show();
                     $('#fetchCategories').hide();  
                     $('#categoriesTable').hide();
+                    $('#fetchProducts').hide();  
+                    $('#productsTable').hide();
+                    $('#orderSection').hide();
                     window.graphqlToken = null;
                     localStorage.removeItem('authToken8001');
                 },
@@ -259,6 +299,7 @@ $('#fetchCategories').on('click', function () {
                     </tr>
                 `;
             });
+            $('#categoriesTable').show();
             $('#categoriesResult').html(rows);
         },
         error: function (xhr) {
@@ -271,6 +312,94 @@ $('#fetchCategories').on('click', function () {
     });
 });
 
+
+$('#fetchProducts').on('click', function () {
+    $.ajax({
+        url: window.WEB_EXTERNAL + '/graphql',
+        method: 'POST',
+        contentType: 'application/json',
+        xhrFields: { withCredentials: true },
+        headers: { 'Authorization': 'Bearer ' + window.graphqlToken },
+        data: JSON.stringify({
+            query: `
+                query {
+                    prods {
+                        id
+                        name
+                        des
+                        cat {
+                            name
+                        }
+                    }
+                }
+            `
+        }),
+        success: function (response) {
+            const prods = response.data.prods;
+            let rows = '';
+            $('#productSelect').empty();
+            prods.forEach(p => {
+                rows += `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.des ?? ''}</td>
+                        <td>${p.cat ? p.cat.name : ''}</td>
+                    </tr>
+                `;
+                $('#productSelect').append(
+                    `<option value="${p.id}">${p.name}</option>`
+                );
+            });
+            $('#productsResult').html(rows);
+            $('#productsTable').show();
+            $('#orderSection').show();
+        },
+        error: function (xhr) {
+            $('#productsResult').html(`
+                <tr>
+                    <td colspan="4"><strong>GraphQL error:</strong> ${xhr.status} ${xhr.responseText}</td>
+                </tr>
+            `);
+        }
+    });
+});
+
+$('#createOrderForm').on('submit', function (e) {
+    e.preventDefault();
+    const prodid = $('#productSelect').val();
+    const quan = $('#quantity').val();
+
+    $.ajax({
+        url: window.WEB_EXTERNAL + '/graphql',
+        method: 'POST',
+        contentType: 'application/json',
+        xhrFields: { withCredentials: true },
+        headers: { 'Authorization': 'Bearer ' + window.graphqlToken },
+        data: JSON.stringify({
+            query: `
+                mutation {
+                    createProdorder(
+                        prodid: ${prodid}, 
+                        quan: ${quan}, 
+                        customer: "Laravel First App"
+                    ) {
+                        id
+                        prodid
+                        quan
+                        customer
+                    }
+                }
+            `
+        }),
+        success: function (response) {
+            alert('Order created: ' + JSON.stringify(response.data.createProdorder));
+        },
+        error: function (xhr) {
+            alert('GraphQL error: ' + xhr.status + ' ' + xhr.responseText);
+        }
+    });
+});
 
 </script>
 
